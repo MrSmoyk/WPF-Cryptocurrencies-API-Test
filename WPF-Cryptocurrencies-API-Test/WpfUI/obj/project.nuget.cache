@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qpgiSmWOOjF0J4dL/Oa85WxveI1TMHD/6+7iyFpkhtpjhEjSG7PIGiaCOX+/hpXcENoijhtPPnI/U0WBV5ET5w==",
+  "dgSpecHash": "lfqfvEFWRsUcui6SS6582K977VuN+eD4apOadXdrDPjdNxeikplEuKsCBbHg2iOq4lYUwYX/bxb/m3DmT1xTgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\MrSmoyk\\source\\repos\\MyGit\\WPF-Cryptocurrencies-API-Test\\WPF-Cryptocurrencies-API-Test\\WpfUI\\WpfUI.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\MrSmoyk\\.nuget\\packages\\communitytoolkit.mvvm\\8.1.0\\communitytoolkit.mvvm.8.1.0.nupkg.sha512"
+  ],
   "logs": []
 }
