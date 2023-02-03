@@ -22,9 +22,9 @@ C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurr
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\WpfUI.pdb
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\WpfUI.genruntimeconfig.cache
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\ref\WpfUI.dll
-C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\MainWindow.g.cs
-C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\MainWindow.baml
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\CoinView.g.cs
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\bin\Debug\net6.0-windows\CommunityToolkit.Mvvm.dll
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\CoinView.baml
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\HomeWindow.g.cs
+C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\obj\Debug\net6.0-windows\View\HomeWindow.baml

@@ -10,7 +10,7 @@ namespace Domain.DTOs.CoinsDTOs
     public class MarketDataOhlcvDTO
     {
         [JsonPropertyName("market_cap_rank")]
-        public long? MarketCapRank { get; set; }
+        public long? MarketCapRank { get; set; } 
 
         [JsonPropertyName("price_change_24h")]
         public decimal? PriceChange24H { get; set; }

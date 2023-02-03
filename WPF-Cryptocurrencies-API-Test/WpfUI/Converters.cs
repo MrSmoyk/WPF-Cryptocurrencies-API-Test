@@ -72,4 +72,97 @@ namespace WpfUI
             throw new NotImplementedException();
         }
     }
+
+    public class CurrencyVolumeToVolume : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var markets = value as CoinMarketsDTO;
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                "{0:N0} {1}",
+                markets.TotalVolume / markets.CurrentPrice,
+                markets.Symbol.ToUpper()
+            );
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SupplyWithSymbol : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var markets = value as CoinMarketsDTO;
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                "{0:N0} {1}",
+                markets.CirculatingSupply,
+                markets.Symbol.ToUpper()
+            );
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SparklineToBrush : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var markets = value as CoinMarketsDTO;
+            if (markets.SparklineIn7D.Price.First() > markets.SparklineIn7D.Price.Last())
+            {
+                return "#D6455D";
+            }
+            return "#4fc280";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SparklineToSvg : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            culture = CultureInfo.InvariantCulture;
+
+            int index = 0;
+            var markets = value as CoinMarketsDTO;
+            var max = markets.SparklineIn7D.Price.Max();
+            var avg = markets.SparklineIn7D.Price.Average();
+            var coef = max - avg;
+            var scale = 14 / (coef == 0 ? 14 : coef);
+
+            string path = markets.SparklineIn7D.Price.Aggregate("", (path, price) =>
+            {
+                char instruction = index == 0 ? 'M' : 'L';
+                path = string.Format(
+                    culture,
+                    "{0} {1}{2} {3:0.###}",
+                    path,
+                    instruction,
+                    index,
+                    (max - price) * scale
+                );
+                index++;
+                return path;
+            });
+            return path;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
