@@ -5,7 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
+using WpfUI.View;
 
 namespace WpfUI
 {
@@ -35,7 +37,9 @@ namespace WpfUI
             if (price >= 1 || price < 0) precision = 2;
             else if (price > 0.099M) precision = 4;
             else precision = (int)Math.Log10((double)(1M / price)) * 2;
-            return string.Format(CultureInfo.CurrentCulture, "{0:C" + precision + "}", price);
+            var str = string.Format(CultureInfo.CurrentCulture, "{0:C" + precision + "}", price);
+            var curStr = Static.CurrencyType + str.Remove(0, 1);
+            return curStr;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -48,7 +52,8 @@ namespace WpfUI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((decimal)value).ToString("C0", CultureInfo.CurrentCulture);
+            var curStr = Static.CurrencyType + ((decimal)value).ToString("C0", CultureInfo.CurrentCulture).Remove(0, 1);
+            return curStr;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -57,17 +62,16 @@ namespace WpfUI
         }
     }
 
-    public class PercentToText : IValueConverter
+    public class DecimalDivision : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-
-            if (value == null) return string.Empty;
-            decimal percentage = (decimal)value;
-            return (percentage >= 0 ? "⏶" : "⏷") + Math.Abs(percentage / 100).ToString("P", CultureInfo.InvariantCulture);
+            return string.Format(CultureInfo.CurrentCulture,
+                "{0:N5}", values[0] is not decimal a || values[1] is not decimal b ? 0 : b / a)
+;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -158,6 +162,66 @@ namespace WpfUI
                 return path;
             });
             return path;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PercentToBrush : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (decimal)value >= 0 ? "#16c784" : "#ea3943";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PercentToText : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            if (value == null) return string.Empty;
+            decimal percentage = (decimal)value;
+            return (percentage >= 0 ? "⏶" : "⏷") + Math.Abs(percentage / 100).ToString("P", CultureInfo.InvariantCulture);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    public class CurrencyToVisibility : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values[0] is not string selectedCurrency ||
+                values[1] is not string parameterCurrency
+            ) return Visibility.Collapsed;
+
+            return selectedCurrency == parameterCurrency ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

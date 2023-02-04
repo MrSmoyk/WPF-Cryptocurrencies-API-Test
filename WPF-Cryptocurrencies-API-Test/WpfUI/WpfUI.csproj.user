@@ -7,15 +7,21 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\CoinView.xaml.cs">
+    <Compile Update="View\CoinPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\MainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="View\CoinView.xaml">
+    <Page Update="View\CoinPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\HomeWindow.xaml">
+    <Page Update="View\HomePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

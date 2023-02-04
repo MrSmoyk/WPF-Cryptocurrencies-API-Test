@@ -1,0 +1,262 @@
+﻿<Page x:Class="WpfUI.View.CoinView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:local1="clr-namespace:WpfUI.ViewModels"
+        xmlns:Wpfui="clr-namespace:WpfUI"
+        mc:Ignorable="d"
+        Title="CoinView">
+    <Page.DataContext >
+        <local1:CoinViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <Wpfui:ToUpper x:Key="ToUpper"/>
+        <Wpfui:DecimalToVariableCurrency x:Key="DecimalToVariableCurrency"/>
+        <Wpfui:CurrencyToVisibility x:Key="CurrencyToVisibility"/>
+        <Wpfui:PercentToBrush x:Key="PercentToBrush"/>
+        <Wpfui:PercentToText x:Key="PercentToText"/>
+        <Wpfui:DecimalDivision x:Key="DecimalDivision"/>
+        <Wpfui:NullToVisibility x:Key="NullToVisibility"/>
+        <s:String x:Key="usd">usd</s:String>
+        <s:String x:Key="eur">eur</s:String>
+    </Page.Resources>
+    <Grid>
+        <ScrollViewer Margin="0 2 0 0" HorizontalScrollBarVisibility="Auto">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="700"/>
+                    <ColumnDefinition Width="350"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="800"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.ColumnSpan="2" Margin="16 24 12 14">
+                            <StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Button Margin="10" Click="Button_Click">
+                                        <Button.Content >
+                                            <TextBlock Margin="0 0 10 0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Back</TextBlock>
+                                        </Button.Content>
+                                    </Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image RenderOptions.BitmapScalingMode="HighQuality" Height="30" Width="30" VerticalAlignment="Center" Source="{Binding CoinData.Image}" />
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Margin="8 0 0 0" Text="{Binding CoinData.Name}"/>
+                                        <Border VerticalAlignment="Center" Margin="10 3 0 0" Padding="5 4" CornerRadius="3">
+                                            <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding CoinData.Symbol, Converter={StaticResource ToUpper}}" />
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Medium" Margin="10 0" Text="to"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                        <Viewbox Margin="0 -30 0 0" Height="1.3" Width="1.3">
+                                            <Canvas Width="1" Height="1">
+                                                <Path Fill="#16C784" Data="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" />
+                                                <Path Fill="White" Data="M11.4758 19H12.5547L12.5598 17.7477C14.743 17.5781 15.9949 16.2875 16 14.4555C15.9949 12.5141 14.5038 11.6281 12.9364 11.2289L12.6005 11.1359L12.6209 8.01328C13.4351 8.16641 13.9593 8.69141 14.0407 9.47891H15.8575C15.827 7.73984 14.5547 6.47109 12.631 6.27422L12.6361 5H11.5573L11.5522 6.27422C9.64377 6.48203 8.26972 7.73984 8.27481 9.55C8.27481 11.1578 9.33842 12.082 11.0534 12.5578L11.5115 12.6836L11.4911 15.9922C10.5802 15.8391 9.92366 15.2812 9.85751 14.2914H8C8.07125 16.3422 9.38422 17.5617 11.4809 17.7477L11.4758 19ZM12.57 15.9922L12.5903 12.9898C13.5165 13.2797 14.1069 13.6625 14.112 14.4391C14.1069 15.2484 13.5013 15.8281 12.57 15.9922ZM11.5216 10.8406C10.8193 10.6 10.1781 10.2008 10.1883 9.42422C10.1934 8.71875 10.687 8.17188 11.542 8.01328L11.5216 10.8406Z" />
+                                            </Canvas>
+                                        </Viewbox>
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Margin="42 0 0 0" Text="United States Dollar"/>
+                                        <Border VerticalAlignment="Center" Margin="10 3 0 0" Padding="5 4" CornerRadius="3">
+                                            <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Currency, Converter={StaticResource ToUpper}}" />
+                                        </Border>
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource CurrencyToVisibility}">
+                                                            <Binding Path="Currency" />
+                                                            <Binding Source="{StaticResource usd}" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </StackPanel.Style>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                        <Viewbox Margin="0 -30 0 0" Height="1.3" Width="1.3">
+                                            <Canvas Width="1" Height="1">
+                                                <Path Fill="#3861FB" Data="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" />
+                                                <Path Fill="White" Data="M14.4964 10.2148H9.93795C10.3675 8.65779 11.4057 7.90494 12.7422 7.90494C13.7864 7.90494 14.5919 8.37262 15.1647 8.80608L16 7.10646C15.1169 6.39924 14.0191 6 12.7422 6C10.2064 6 8.29117 7.55133 7.70644 10.2148H6.47136L6 11.4297H7.53938C7.52745 11.6179 7.52148 11.8118 7.52148 12.0114C7.52148 12.1996 7.52745 12.3878 7.53938 12.5703H6.47136L6 13.8023H7.70644C8.29117 16.4601 10.2064 18 12.7422 18C13.9714 18 15.111 17.6407 15.9642 16.9335L15.1169 15.2338C14.5979 15.6331 13.7924 16.0951 12.7422 16.0951C11.3998 16.0951 10.3675 15.3593 9.93795 13.8023H12.778L13.3926 12.5703H9.74105C9.72912 12.3935 9.72315 12.2053 9.72315 12.0114C9.72315 11.8118 9.72912 11.6179 9.74105 11.4297H13.9177L14.4964 10.2148Z" />
+                                            </Canvas>
+                                        </Viewbox>
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Margin="38 0 0 0" Text="Euro"/>
+                                        <Border VerticalAlignment="Center" Margin="10 3 0 0" Padding="5 4" CornerRadius="3">
+                                            <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Currency, Converter={StaticResource ToUpper}}" />
+                                        </Border>
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource CurrencyToVisibility}">
+                                                            <Binding Path="Currency" />
+                                                            <Binding Source="{StaticResource eur}" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </StackPanel.Style>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="SemiBold" Text="{Binding CoinData.CurrentPrice, Converter={StaticResource DecimalToVariableCurrency}}" />
+                                <Border Margin="10 0 0 0" VerticalAlignment="Center" CornerRadius="7" Padding="7" Background="{Binding CoinData.PriceChangePercentage24H, Converter={StaticResource PercentToBrush}}">
+                                    <TextBlock Foreground="White" FontWeight="Bold" Text="{Binding CoinData.PriceChangePercentage24H, Converter={StaticResource PercentToText}}" />
+                                </Border>
+                            </StackPanel>
+                        </DockPanel>
+                <WrapPanel Grid.Row="1" Margin="35 0 0 0">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" FontSize="24"> What is <Run Text="{Binding CoinData.Name}" />(<Run Text="{Binding CoinData.Symbol, Converter={StaticResource ToUpper}}" />)?
+                        </TextBlock>
+                        <ItemsControl ItemsSource="{Binding DescriptionRows}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock LineHeight="22" TextWrapping="Wrap" FontSize="14" Text="{Binding .}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style>
+                                    <Setter Property="FrameworkElement.Margin" Value="0 0 0 12" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
+                    </StackPanel>
+                </WrapPanel>
+                <Border Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" BorderThickness="0.5" BorderBrush="#00ffffff"
+                            Padding="18" CornerRadius="8">
+                    <StackPanel>
+                        <TextBlock FontSize="22" FontWeight="SemiBold"><Run Text="{Binding CoinData.Symbol, Converter={StaticResource ToUpper}}"/> Price Statistics</TextBlock>
+                        <TextBlock FontWeight="Medium" Margin="0 20 0 0"> Price Today</TextBlock>
+                        <Separator Margin="0 10 0 0"/>
+                        <DockPanel Margin="0 12">
+                            <TextBlock FontWeight="SemiBold" FontSize="14"><Run Text="{Binding CoinData.Name}"/> Price</TextBlock>
+                            <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5" Text="{Binding CoinData.CurrentPrice, Converter={StaticResource DecimalToVariableCurrency}}" />
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" FontWeight="Medium" FontSize="13.5"> Price Change</TextBlock>
+                                <Border VerticalAlignment="Center" Margin="4 0" Padding="4" CornerRadius="3">
+                                    <TextBlock>24h</TextBlock>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold"
+                                               FontSize="13.5" Text="{Binding CoinData.PriceChange24H, Converter={StaticResource DecimalToVariableCurrency}}"/>
+                                <TextBlock Margin="0 5 0 0" HorizontalAlignment="Right"
+                                               FontSize="12" FontWeight="SemiBold"
+                                               Text="{Binding CoinData.PriceChangePercentage24HInCurrency, Converter={StaticResource PercentToText }}"
+                                               Foreground="{Binding CoinData.PriceChangePercentage24HInCurrency, Converter={StaticResource PercentToBrush}}"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <TextBlock VerticalAlignment="Center" FontWeight="Medium" FontSize="13.5">24h Low / 24h High</TextBlock>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5" Margin="0 0 0 3"><Run Text="{Binding CoinData.Low24H, Converter={StaticResource DecimalToVariableCurrency}}" />/</TextBlock>
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5" Text="{Binding CoinData.High24H, Converter={StaticResource DecimalToVariableCurrency}}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" FontWeight="Medium" FontSize="13.5">Trading Volume</TextBlock>
+                                <Border VerticalAlignment="Center" Margin="4 0" Padding="4" CornerRadius="3">
+                                    <TextBlock FontSize="10.5" FontWeight="Medium">24h</TextBlock>
+                                </Border>
+                            </StackPanel>
+                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"
+                                           FontWeight="SemiBold" FontSize="13.5"
+                                           Text="{Binding CoinData.TotalVolume, Converter={StaticResource DecimalToVariableCurrency}}" />
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <TextBlock FontWeight="Medium" FontSize="13.5" >Volume / Market Cap</TextBlock>
+                            <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource DecimalDivision}">
+                                        <Binding Path="CoinData.MarketCap" />
+                                        <Binding Path="CoinData.TotalVolume" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <TextBlock FontWeight="Medium" FontSize="13.5"> Market Rank</TextBlock>
+                            <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5" Text="{Binding CoinData.MarketCapRank, StringFormat='#{0}'}" />
+                        </DockPanel>
+                        <TextBlock FontWeight="Medium" Margin="0 24 0 8"><Run Text="{Binding CoinData.Name}" /> Market Cap</TextBlock>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <TextBlock VerticalAlignment="Center" FontWeight="Medium" FontSize="13.5"> Market Cap</TextBlock>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="13.5" Text="{Binding CoinData.MarketCap, Converter={StaticResource DecimalToVariableCurrency}}" />
+                                <TextBlock Margin="0 5 0 0" HorizontalAlignment="Right"
+                                               FontSize="12" FontWeight="SemiBold"
+                                               Text="{Binding CoinData.MarketCapChangePercentage24H, Converter={StaticResource PercentToText}}" Foreground="{Binding CoinData.MarketCapChangePercentage24H, Converter={StaticResource PercentToBrush}}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <StackPanel Visibility="{Binding CoinData.FullyDilutedMarketCap, Converter={StaticResource NullToVisibility}}">
+                            <Separator/>
+                            <DockPanel Margin="0 12">
+                                <TextBlock FontWeight="Medium" FontSize="13.5">Fully Diluted Market Cap</TextBlock>
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"
+                                               FontWeight="SemiBold" FontSize="13.5"
+                                               Text="{Binding CoinData.FullyDilutedMarketCap, Converter={StaticResource DecimalToVariableCurrency}}" />
+                            </DockPanel>
+                        </StackPanel>
+                        <TextBlock FontWeight="Medium" Margin="0 24 0 8">
+                                <Run Text="{Binding CoinData.Name}" />
+                                Price History
+                        </TextBlock>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <StackPanel>
+                                <TextBlock FontWeight="Medium" FontSize="13.5">All Time High</TextBlock>
+                                <TextBlock Margin="0 5 0 0" FontSize="11.5"
+                                               FontWeight="Medium" Text="{Binding CoinData.AthDate,StringFormat='MMM dd yyyy'}" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold"
+                                               FontSize="13.5" Text="{Binding CoinData.Ath, Converter={StaticResource DecimalToVariableCurrency}}" />
+                                <TextBlock Margin="0 5 0 0" HorizontalAlignment="Right"
+                                               FontSize="12" FontWeight="SemiBold"
+                                               Text="{Binding CoinData.AthChangePercentage, Converter={StaticResource PercentToText}}"
+                                               Foreground="{Binding CoinData.AthChangePercentage, Converter={StaticResource PercentToBrush}}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <Separator/>
+                        <DockPanel Margin="0 12">
+                            <StackPanel>
+                                <TextBlock FontWeight="Medium" FontSize="13.5">All Time Low</TextBlock>
+                                <TextBlock Margin="0 5 0 0" FontSize="11.5" FontWeight="Medium" Text="{Binding CoinData.AtlDate,StringFormat='MMM dd yyyy'}" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Right" FontWeight="SemiBold"
+                                               FontSize="13.5"  Text="{Binding CoinData.Atl, Converter={StaticResource DecimalToVariableCurrency}}" />
+                                <TextBlock Margin="0 5 0 0" HorizontalAlignment="Right"
+                                               FontSize="12" FontWeight="SemiBold" Text="{Binding CoinData.AtlChangePercentage, Converter={StaticResource PercentToText}}"
+                                               Foreground="{Binding CoinData.AtlChangePercentage, Converter={StaticResource PercentToBrush}}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <Separator />
+                        <DockPanel Margin="0 12">
+                            <StackPanel>
+                                <TextBlock FontWeight="Medium" FontSize="13.5"><Run Text="{Binding CoinData.Name}" />ROI</TextBlock>
+                            </StackPanel>
+                            <TextBlock Margin="0 5 0 0" HorizontalAlignment="Right"
+                                           FontSize="13.5" FontWeight="SemiBold"
+                                           Text="{Binding CoinData.AtlChangePercentage, Converter={StaticResource PercentToText}}"
+                                           Foreground="{Binding CoinData.AtlChangePercentage, Converter={StaticResource PercentToBrush}}"/>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
