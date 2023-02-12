@@ -1,14 +1,12 @@
 ﻿using Domain.DTOs.CoinsDTOs;
 using Services.Implementations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfUI.ViewModels
@@ -18,7 +16,7 @@ namespace WpfUI.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private CoinGeckoApiClient apiClient { get;} = new();
+        private CoinGeckoApiClient apiClient { get; } = new();
 
         public ObservableCollection<CoinMarketsDTO> CoinsToPage { get; set; } = new();
 
@@ -34,7 +32,7 @@ namespace WpfUI.ViewModels
         public HomeViewModel()
         {
             var vs = "usd";
-            Task.Run(async() => await GetCoinsAsync(vs)).Wait();
+            Task.Run(async () => await GetCoinsAsync(vs)).Wait();
         }
 
         public async Task GetCoinsAsync(string vsCurrency)
@@ -59,23 +57,29 @@ namespace WpfUI.ViewModels
         }
 
         public void TextSearch(string text)
-       {
+        {
             List<CoinMarketsDTO> coinsListToSort = Coins.AllObjects.ToList();
-            List<CoinMarketsDTO> sortedList = coinsListToSort.FindAll(x => x.Id.Contains(text.ToLower()));
+            List<CoinMarketsDTO> sortedList = coinsListToSort.FindAll(x => x.Name.ToLower().Contains(text.ToLower()));
+
             foreach (var coin in sortedList)
             {
                 coinsListToSort.Remove(coin);
+            }
+
+            foreach (var item in sortedList)
+            {
+                coinsListToSort.Remove(item);
             }
             sortedList.AddRange(coinsListToSort);
 
             Coins = new PageableCollection<CoinMarketsDTO>(sortedList);
             CoinsToPage.Clear();
 
-            foreach(var coin in Coins.CurrentPageItems)
+            foreach (var coin in Coins.CurrentPageItems)
             {
                 CoinsToPage.Add(coin);
             }
-            
+
 
         }
 
@@ -118,9 +122,9 @@ namespace WpfUI.ViewModels
         }
     }
 
-    
 
-    public class PageableCollection<T> : ObservableCollection<T> , INotifyPropertyChanged
+
+    public class PageableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
     {
         private int _pageSize = 30;
         public int PageSize
@@ -223,10 +227,8 @@ namespace WpfUI.ViewModels
         {
             AllObjects.Remove(item);
 
-            // Update the total number of pages
             SendPropertyChanged(() => TotalPagesNumber);
 
-            // if the last item on the last page is removed
             if (CurrentPageNumber > TotalPagesNumber)
                 CurrentPageNumber--;
 

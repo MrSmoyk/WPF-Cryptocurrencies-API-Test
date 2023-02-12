@@ -1,11 +1,5 @@
 ﻿using Domain.DTOs.SharedDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Domain.DTOs.CoinsDTOs
 {

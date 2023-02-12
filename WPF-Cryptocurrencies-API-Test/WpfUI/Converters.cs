@@ -1,13 +1,10 @@
 ﻿using Domain.DTOs.CoinsDTOs;
+using Domain.Params;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using WpfUI.View;
 
 namespace WpfUI
 {
@@ -38,7 +35,7 @@ namespace WpfUI
             else if (price > 0.099M) precision = 4;
             else precision = (int)Math.Log10((double)(1M / price)) * 2;
             var str = string.Format(CultureInfo.CurrentCulture, "{0:C" + precision + "}", price);
-            var curStr = Static.CurrencyType + str.Remove(0, 1);
+            var curStr = CurrentCurrency.CurrencyType + str.Remove(0, 1);
             return curStr;
         }
 
@@ -52,7 +49,7 @@ namespace WpfUI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var curStr = Static.CurrencyType + ((decimal)value).ToString("C0", CultureInfo.CurrentCulture).Remove(0, 1);
+            var curStr = CurrentCurrency.CurrencyType + ((decimal)value).ToString("C0", CultureInfo.CurrentCulture).Remove(0, 1);
             return curStr;
         }
 

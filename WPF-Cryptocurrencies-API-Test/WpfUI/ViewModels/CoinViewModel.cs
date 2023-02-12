@@ -1,6 +1,5 @@
 ﻿using Domain.DTOs.CoinsDTOs;
 using Services.Implementations;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -22,11 +21,11 @@ namespace WpfUI.ViewModels
         public CoinViewModel()
         {
         }
-         
+
         public CoinViewModel(string coin, string vsCurrency)
         {
             Currency = vsCurrency;
-            Task.Run(async () => await GetCoinAsync(coin,vsCurrency)).Wait();
+            Task.Run(async () => await GetCoinAsync(coin, vsCurrency)).Wait();
         }
 
         public CoinMarketsDTO CoinData { get; private set; }

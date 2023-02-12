@@ -1,9 +1,4 @@
 ﻿using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
@@ -24,7 +19,6 @@ namespace Services.Implementations
 
         public ICoinsApiClient CoinsApiClient => new CoinsApiClient(_httpClient);
 
-        public IGlobalApiClient GlobalApiClient => new GlobalApiClient(_httpClient);
 
         public void Dispose()
         {

@@ -1,11 +1,5 @@
 ﻿using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Services.Implementations
 {
@@ -20,14 +14,15 @@ namespace Services.Implementations
 
         public async Task<T> GetAsync<T>(Uri resourceUri)
         {
-            var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, resourceUri))
-            .ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCode();
-
-            var responseContent = await response.Content.ReadAsStringAsync();
             try
             {
+                var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, resourceUri))
+                    .ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
                 return JsonSerializer.Deserialize<T>(responseContent);
             }
             catch (Exception e)

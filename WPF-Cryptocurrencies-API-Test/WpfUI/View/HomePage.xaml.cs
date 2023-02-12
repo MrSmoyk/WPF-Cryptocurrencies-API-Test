@@ -1,27 +1,18 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Domain.DTOs.CoinsDTOs;
-using Services.Implementations;
+﻿using Domain.Params;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using WpfUI.ViewModels;
 
 namespace WpfUI.View
 {
-    public partial class HomePage: Page
+    public partial class HomePage : Page
     {
         private HomeViewModel Context
         {
@@ -46,15 +37,14 @@ namespace WpfUI.View
 
         private async Task OnSelectCurrency(bool selectedCurrency)
         {
-            if(selectedCurrency)
+            if (selectedCurrency)
             {
                 await Context.GetCoinsAsync("usd");
-            }else
+            }
+            else
             {
                 await Context.GetCoinsAsync("eur");
             }
-
-            
         }
 
 
@@ -62,15 +52,16 @@ namespace WpfUI.View
         {
             var cont = Currency.SelectedItem as string;
 
-            if(cont == "USD")
+            if (cont == "USD")
             {
                 SelectedCurrency = true;
-                Static.CurrencyType = '$';
+                CurrentCurrency.CurrencyType = '$';
 
-            }else if(cont == "EUR")
+            }
+            else if (cont == "EUR")
             {
                 SelectedCurrency = false;
-                Static.CurrencyType = '€';
+                CurrentCurrency.CurrencyType = '€';
             }
             await OnSelectCurrency(SelectedCurrency);
         }
@@ -81,8 +72,9 @@ namespace WpfUI.View
             if (string.IsNullOrEmpty(text))
             {
                 Context.DefaulfTextSorting();
-              
-            }else
+
+            }
+            else
             {
                 Context.TextSearch(text);
             }
@@ -96,7 +88,7 @@ namespace WpfUI.View
             if (SelectedCurrency)
                 currency = "usd";
 
-            var w = new CoinView(selectedCoinId,currency);
+            var w = new CoinView(selectedCoinId, currency);
 
             NavigationService navigation = NavigationService.GetNavigationService(this);
             navigation.Navigate(w);
@@ -115,11 +107,11 @@ namespace WpfUI.View
 
         }
 
-        private void NextPage (object sender, RoutedEventArgs e)
+        private void NextPage(object sender, RoutedEventArgs e)
         {
-  
+
             var page = Math.Min(CurrentPage + 1, 100);
-           
+
             Context.NextPage();
             Scroller.ScrollToTop();
             CurrentPage = page;
@@ -127,6 +119,25 @@ namespace WpfUI.View
             Scroller.Focus();
         }
 
+        private async void RefreshData(object sender, RoutedEventArgs e)
+        {
+            var cont = Currency.SelectedItem as string;
+
+            if (cont == "USD")
+            {
+                SelectedCurrency = true;
+                CurrentCurrency.CurrencyType = '$';
+
+            }
+            else if (cont == "EUR")
+            {
+                SelectedCurrency = false;
+                CurrentCurrency.CurrencyType = '€';
+            }
+            await OnSelectCurrency(SelectedCurrency);
+            SearchTextBox_TextChanged(sender, e);
+
+        }
     }
 
 }

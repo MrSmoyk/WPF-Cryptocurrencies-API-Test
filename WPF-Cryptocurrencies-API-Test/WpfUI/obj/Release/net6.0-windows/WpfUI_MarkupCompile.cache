@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET6_0;NETCOREAPP
 C:\Users\MrSmoyk\source\repos\MyGit\WPF-Cryptocurrencies-API-Test\WPF-Cryptocurrencies-API-Test\WpfUI\App.xaml
-11407045341
+31893818037
 
-3-1233169557
-194237474483
-MainWindow.xaml;
+81384238960
+197506314717
+View\CoinPage.xaml;View\HomePage.xaml;View\MainWindow.xaml;
 
-True
+False
 
